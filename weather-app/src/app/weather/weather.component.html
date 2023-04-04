@@ -1,0 +1,14 @@
+<div>
+  <h1>See the weather all around the world!</h1>
+
+  <form>
+    <input type="text" ngModel="cityName" >
+    <button type ="button"(click)="getWeather()">Get weather</button>
+  </form>
+
+  <div *ngIf="weatherData">
+    <h2>{{weatherData.name}}</h2>
+    <p>Temperature: {{weatherData.main.temp}}</p>
+    <p>Weather: {{weatherData.weather[0].description}}</p>
+  </div>
+</div>

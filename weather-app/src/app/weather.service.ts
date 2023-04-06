@@ -18,7 +18,13 @@ export class WeatherService {
     return this.http.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${this.apiKey}&units=metric`);
   }
   ;
-
+  getWeatherByCity(city:string){
+    return this.http.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.apiKey}&units=metric`);
+  }
+  ;
+  getWeatherForecast(lat:string, lng:string){
+    return this.http.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&cnt=10&appid=${this.apiKey}&units=metric`);
+  }
 
 
 }

@@ -1,0 +1,11 @@
+
+<div *ngIf="weatherData">
+  <mat-grid-list cols="5" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let forecast of weatherData.list">
+      <h3>{{ forecast.dt_txt}}</h3>
+      <p><img class ="small-icon" src="../assets/thermometer.png">  {{ forecast.main.temp }}</p>
+<!--      <p><img src="path/to/humidity-icon.svg"> Humidity: {{ forecast.main.humidity }}%</p>-->
+      <p> <img class ="small-icon" src="../assets/prec.png"> {{ (forecast.pop * 100)}}%</p>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

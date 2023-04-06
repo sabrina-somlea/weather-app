@@ -2,27 +2,24 @@ import { Component } from '@angular/core';
 import {WeatherService} from "../weather.service";
 
 @Component({
-  selector: 'app-weather',
-  templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.css']
+  selector: 'app-hours-forecast',
+  templateUrl: './hours-forecast.component.html',
+  styleUrls: ['./hours-forecast.component.css']
 })
-export class WeatherComponent {
-city!: string
-weatherData: any;
-lat: any;
-lng: any;
-
-
-
-constructor (private weatherService:WeatherService){}
+export class HoursForecastComponent {
+  city!: string
+  weatherData: any;
+  lat: any;
+  lng: any;
+  dt_txt:any;
+  constructor (private weatherService:WeatherService){}
 
 
   public ngOnInit() {
-    this.getLocation();
+    this.getForecastbyCurrentLocation();
 
   }
-
-  getLocation() {
+  getForecastbyCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: any) => {
         if (position) {
@@ -31,7 +28,7 @@ constructor (private weatherService:WeatherService){}
           this.lng = position.coords.longitude;
           console.log(this.lat);
           console.log(this.lng);
-          this.weatherService.getWeather(this.lat,this.lng).subscribe(data => {
+          this.weatherService.getWeatherForecast(this.lat,this.lng).subscribe(data => {
             this.weatherData = data;
           });
         }
@@ -41,16 +38,18 @@ constructor (private weatherService:WeatherService){}
     }
   }
 
-  getWeatherByCity(){
-      this.weatherService.getWeatherByCity(this.city).subscribe(data=>{
-        this.weatherData=data;
-        console.log(data);
-      })
-  }
-
-  }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+}

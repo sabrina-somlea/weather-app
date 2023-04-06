@@ -1,14 +1,25 @@
 <div>
-  <h1>See the weather all around the world!</h1>
+  <mat-form-field appearance="fill">
+    <input matInput name="cityName" placeholder="Enter a city" [(ngModel)]="city">
+  </mat-form-field>
+<!--    <button type ="button"(click)="getWeatherByCity()">Get weather</button>-->
+    <button class="button" mat-raised-button color="primary"(click)="getWeatherByCity()">Get weather</button>
+  <button class="button" mat-raised-button color="primary"(click)="getLocation()"> Switch to current location</button>
 
-<!--  <form>-->
-<!--    <input type="text" ngModel="cityName" >-->
-<!--    <button type ="button"(click)="getLocation()">Get weather</button>-->
-<!--  </form>-->
 
-  <div *ngIf="weatherData">
-    <h2>{{weatherData.name}}</h2>
-    <p>Temperature: {{weatherData.main.temp}}</p>
-    <p>Weather: {{weatherData.weather[0].description}}</p>
-  </div>
 </div>
+
+<div class ="container" *ngIf="weatherData">
+  <div class = "basic-data">
+    <h2>{{weatherData.name}}</h2>
+    <p>Temperature: {{weatherData.main.temp}} °C </p>
+    <p>Description: {{weatherData.weather[0].description}}</p>
+    </div>
+    <img class ="medium-icon" src ="../assets/warm.png"  *ngIf="weatherData.main.temp > 15">
+    <img class ="medium-icon" src ="../assets/cold.png"  *ngIf="weatherData.main.temp <= 15">
+
+
+
+</div>
+
+<!--</div>-->

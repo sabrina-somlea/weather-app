@@ -14,13 +14,17 @@ import{MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatLegacyFormFieldModule} from "@angular/material/legacy-form-field";
 import {MatLegacyInputModule} from "@angular/material/legacy-input";
+import {MatCardModule} from "@angular/material/card";
+import {MatTooltipModule} from "@angular/material/tooltip";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     WeatherComponent,
     HeaderComponent,
-    HoursForecastComponent
+    HoursForecastComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -31,9 +35,11 @@ import {MatLegacyInputModule} from "@angular/material/legacy-input";
     MatIconModule,
     MatButtonModule,
     MatLegacyFormFieldModule,
-    MatLegacyInputModule
+    MatLegacyInputModule,
+    MatCardModule,
+    MatTooltipModule
   ],
-  providers: [WeatherService],
+  providers: [WeatherService,HoursForecastComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

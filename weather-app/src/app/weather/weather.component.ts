@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import {WeatherService} from "../weather.service";
+import {HoursForecastComponent} from "../hours-forecast/hours-forecast.component";
 
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.css']
 })
-export class WeatherComponent {
-city!: string
+export class WeatherComponent implements OnInit {
+city!: string;
 weatherData: any;
 lat: any;
 lng: any;
+favorites: any[] = [];
 
 
 
-constructor (private weatherService:WeatherService){}
+
+
+constructor (private weatherService:WeatherService, public forecastComponent:HoursForecastComponent,private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone){}
 
 
   public ngOnInit() {
@@ -41,14 +45,47 @@ constructor (private weatherService:WeatherService){}
     }
   }
 
-  getWeatherByCity(){
-      this.weatherService.getWeatherByCity(this.city).subscribe(data=>{
-        this.weatherData=data;
-        console.log(data);
-      })
+  // getWeatherByCity(){
+  //     this.weatherService.getWeatherByCity(this.city).subscribe(data=>{
+  //       this.weatherData=data;
+  //       console.log(data);
+  //     })
+  //   console.log("dupa primu city: "+this.weatherData);
+  // }
+
+  async getWeatherByCity() {
+    try {
+      const data = await this.weatherService.getWeatherByCity(this.city).toPromise();
+      this.weatherData = data;
+      console.log(this.weatherData);
+      this.ngZone.run(() => this.changeDetectorRef.detectChanges());
+      // apelati getForecastByOtherLocation() din componenta HoursForecastComponent cu noul oras:
+      this.forecastComponent.getForecastByOtherLocation(this.city);
+    } catch (error) {
+      console.log("eroare la preluarea datelor despre vreme: " + error);
+    }
+  }
+
+  addToFavorites() {
+    const favorite = {
+      name: this.weatherData.name,
+      id: this.weatherData.id,
+    };
+    this.favorites.push(favorite);
+    localStorage.setItem('favorites', JSON.stringify(this.favorites));
+  }
+  // getForecastByOtherLocation(){
+  //   this.forecastComponent.getForecastByOtherLocation()
+  //   };
+
+  getWeatherAndForecastByCity() {
+    this.getWeatherByCity();
+    this.forecastComponent.getForecastByOtherLocation(this.city);
   }
 
   }
+
+
 
 
 

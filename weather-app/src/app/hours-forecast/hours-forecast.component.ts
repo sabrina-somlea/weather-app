@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import {WeatherService} from "../weather.service";
 
 @Component({
@@ -6,19 +6,22 @@ import {WeatherService} from "../weather.service";
   templateUrl: './hours-forecast.component.html',
   styleUrls: ['./hours-forecast.component.css']
 })
-export class HoursForecastComponent {
+export class HoursForecastComponent implements OnInit {
   city!: string
-  weatherData: any;
+  forecastData: any;
   lat: any;
   lng: any;
-  dt_txt:any;
-  constructor (private weatherService:WeatherService){}
+  dt_txt: any;
+
+  constructor(private weatherService: WeatherService, private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone) {
+  }
 
 
   public ngOnInit() {
     this.getForecastbyCurrentLocation();
 
   }
+
   getForecastbyCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position: any) => {
@@ -28,8 +31,8 @@ export class HoursForecastComponent {
           this.lng = position.coords.longitude;
           console.log(this.lat);
           console.log(this.lng);
-          this.weatherService.getWeatherForecast(this.lat,this.lng).subscribe(data => {
-            this.weatherData = data;
+          this.weatherService.getWeatherForecast(this.lat, this.lng).subscribe(data => {
+            this.forecastData = data;
           });
         }
       }, (error: any) => console.log(error));
@@ -38,18 +41,49 @@ export class HoursForecastComponent {
     }
   }
 
+  // public async getForecastByOtherLocation(city: string) {
+  //   console.log("start forecast for city: " + city);
+  //   try {
+  //     const data = await this.weatherService.getWeatherForecastByCity(city).subscribe();
+  //     this.forecastData = data;
+  //     console.log("dupa rulare, temp: " + this.forecastData);
+  //     this.ngZone.run(() => this.changeDetectorRef.detectChanges());
+  //   } catch (error) {
+  //     console.log("eroare la preluarea datelor despre vreme: " + error);
+  //   }
+  // }
+
+  // public async getForecastByOtherLocation(city: string) {
+  //   console.log("start forecast for city: " + city);
+  //
+  //   this.weatherService.getWeatherForecastByCity(city).subscribe(
+  //     data => {
+  //       this.forecastData = data;
+  //       console.log("dupa rulare, temp: " + this.forecastData);
+  //       this.ngZone.run(() => this.changeDetectorRef.detectChanges());
+  //     },
+  //     error => {
+  //       console.log("eroare la preluarea datelor despre vreme: " + error);
+  //     }
+  //   );
+
+  public  getForecastByOtherLocation(city: string) {
+      console.log("start forecast for city: " + city);
+
+      this.weatherService.getWeatherForecastByCity(city).subscribe(
+        data => {
+          this.forecastData = data;
+          console.log("dupa rulare, temp: " + this.forecastData);
+        }
+      );
+
+    // getWeatherAndForecastByCity() {
+    //   this.getWeatherByCity();
+    //   this.getForecastByOtherLocation(this.city);
+    // }
 
 
-
-
-
-
-
-
-
-
-
-
+  }
 
 
 }

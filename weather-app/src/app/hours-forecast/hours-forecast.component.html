@@ -1,11 +1,21 @@
-
-<div *ngIf="weatherData">
+<!--<h1>{{ this.forecastData.main.temp }}</h1>-->
+<!--<div *ngIf="forecastData">-->
   <mat-grid-list cols="5" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let forecast of weatherData.list">
-      <h3>{{ forecast.dt_txt}}</h3>
-      <p><img class ="small-icon" src="../assets/thermometer.png">  {{ forecast.main.temp }}</p>
-<!--      <p><img src="path/to/humidity-icon.svg"> Humidity: {{ forecast.main.humidity }}%</p>-->
-      <p> <img class ="small-icon" src="../assets/prec.png"> {{ (forecast.pop * 100)}}%</p>
+    <mat-grid-tile *ngFor="let forecast of forecastData.list">
+      <div class="forecast-item">
+        <div class="date">{{ forecast.dt_txt | date:'d-MMM-y, h:mm a'}}</div>
+        <div class="details">
+            <img class="small-icon" src="../assets/thermometer.png">
+<!--            <span class="label">Temperatura:</span>-->
+            <span class="value">{{ forecast.main.temp }}</span>
+            <img class="small-icon" src="../assets/prec.png">
+<!--            <span class="label">Probabilitatea de precipitații:</span>-->
+            <span class="value">{{ (forecast.pop * 100).toFixed(0)}}%</span>
+        </div>
+      </div>
     </mat-grid-tile>
   </mat-grid-list>
-</div>
+<!--</div>-->
+
+
+<!--<p> {{ this.forecastData[0].main}}</p>-->

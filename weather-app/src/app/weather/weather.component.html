@@ -1,25 +1,45 @@
 <div>
   <mat-form-field appearance="fill">
     <input matInput name="cityName" placeholder="Enter a city" [(ngModel)]="city">
+    <button *ngIf="city" matSuffix mat-icon-button aria-label="Clear" (click)="city=''">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-form-field>
-<!--    <button type ="button"(click)="getWeatherByCity()">Get weather</button>-->
-    <button class="button" mat-raised-button color="primary"(click)="getWeatherByCity()">Get weather</button>
-  <button class="button" mat-raised-button color="primary"(click)="getLocation()"> Switch to current location</button>
+  <button class="button" mat-raised-button color="primary" (click)="getWeatherByCity()">Get weather</button>
+  <button class="button" mat-raised-button color="primary" (click)="this.forecastComponent.getForecastByOtherLocation(city)">Get forecast</button>
+  <button class="button" mat-raised-button color="primary" (click)="getLocation()"> Switch to current location</button>
 
-
+<!--  this.forecastComponent.getForecastByOtherLocation(city)-->
 </div>
 
-<div class ="container" *ngIf="weatherData">
-  <div class = "basic-data">
-    <h2>{{weatherData.name}}</h2>
+<mat-card class="container" >
+  <mat-card-header>
+    <mat-card-title>{{weatherData.name}}</mat-card-title>
+
+  </mat-card-header>
+  <mat-card-content>
     <p>Temperature: {{weatherData.main.temp}} °C </p>
-    <p>Description: {{weatherData.weather[0].description}}</p>
-    </div>
-    <img class ="medium-icon" src ="../assets/warm.png"  *ngIf="weatherData.main.temp > 15">
-    <img class ="medium-icon" src ="../assets/cold.png"  *ngIf="weatherData.main.temp <= 15">
+    <p>Description: {{weatherData.weather[0].description}} </p>
+    <img class="medium-icon" src="../assets/warm.png" *ngIf="weatherData.main.temp > 15">
+    <img class="medium-icon" src="../assets/cold.png" *ngIf="weatherData.main.temp <= 15">
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-mini-fab matTooltip="Add to favourites" color="warn" (click)="addToFavorites()">
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
 
+<div class="favorites-container">
+  <div *ngIf="favorites.length > 0">
+    <ul>
+      <li *ngFor="let city of favorites">{{ city.name }}</li>
+    </ul>
+  </div>
 
-
+  <div *ngIf="favorites.length == 0">
+    Nu există orașe favorite.
+  </div>
 </div>
 
-<!--</div>-->
+<!--<h1>{{ forecastComponent.forecastData.pop }}</h1>-->

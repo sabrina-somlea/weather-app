@@ -2,6 +2,8 @@ import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import {WeatherService} from "../weather.service";
 import {HoursForecastComponent} from "../hours-forecast/hours-forecast.component";
 
+
+
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
@@ -18,7 +20,7 @@ favorites: any[] = [];
 
 
 
-constructor (private weatherService:WeatherService, public forecastComponent:HoursForecastComponent,private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone){}
+constructor (private weatherService:WeatherService, public forecastComponent:HoursForecastComponent, private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone){}
 
 
   public ngOnInit() {
@@ -59,10 +61,10 @@ constructor (private weatherService:WeatherService, public forecastComponent:Hou
       this.weatherData = data;
       console.log(this.weatherData);
       this.ngZone.run(() => this.changeDetectorRef.detectChanges());
-      // apelati getForecastByOtherLocation() din componenta HoursForecastComponent cu noul oras:
       this.forecastComponent.getForecastByOtherLocation(this.city);
     } catch (error) {
-      console.log("eroare la preluarea datelor despre vreme: " + error);
+      alert("The city is not valid. Please write a valid one.");
+      console.log("The city is not valid. Please write a valid one: " + error);
     }
   }
 
@@ -71,12 +73,13 @@ constructor (private weatherService:WeatherService, public forecastComponent:Hou
       name: this.weatherData.name,
       id: this.weatherData.id,
     };
-    this.favorites.push(favorite);
-    localStorage.setItem('favorites', JSON.stringify(this.favorites));
+    const existingFavorite = this.favorites.find((fav: any) => fav.id === favorite.id);
+
+    if (!existingFavorite) {
+      this.favorites.push(favorite);
+      localStorage.setItem('favorites', JSON.stringify(this.favorites));
+    }
   }
-  // getForecastByOtherLocation(){
-  //   this.forecastComponent.getForecastByOtherLocation()
-  //   };
 
   getWeatherAndForecastByCity() {
     this.getWeatherByCity();

@@ -6,15 +6,14 @@
     </button>
   </mat-form-field>
   <button class="button" mat-raised-button color="primary" (click)="getWeatherByCity()">Get weather</button>
-  <button class="button" mat-raised-button color="primary" (click)="this.forecastComponent.getForecastByOtherLocation(city)">Get forecast</button>
   <button class="button" mat-raised-button color="primary" (click)="getLocation()"> Switch to current location</button>
 
-<!--  this.forecastComponent.getForecastByOtherLocation(city)-->
+
 </div>
 
 <mat-card class="container" >
   <mat-card-header>
-    <mat-card-title>{{weatherData.name}}</mat-card-title>
+    <mat-card-title>Current weather in: {{weatherData.name}}</mat-card-title>
 
   </mat-card-header>
   <mat-card-content>
@@ -27,6 +26,7 @@
     <button mat-mini-fab matTooltip="Add to favourites" color="warn" (click)="addToFavorites()">
       <mat-icon>favorite</mat-icon>
     </button>
+
   </mat-card-actions>
 </mat-card>
 
@@ -38,8 +38,8 @@
   </div>
 
   <div *ngIf="favorites.length == 0">
-    Nu există orașe favorite.
+    There are no cities added to favourites.
   </div>
 </div>
 
-<!--<h1>{{ forecastComponent.forecastData.pop }}</h1>-->
+

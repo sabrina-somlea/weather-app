@@ -1,23 +1,6 @@
 <app-header></app-header>
-<!--<mat-grid-list cols="3" rowHeight="1500px" gutterSize="16px" class="grid-list">-->
-<!--  <mat-grid-tile>-->
-<!--    <app-hours-forecast></app-hours-forecast>-->
-<!--  </mat-grid-tile>-->
-<!--  <mat-grid-tile>-->
-<!--    <app-weather></app-weather>-->
-<!--  </mat-grid-tile>-->
-<!--  <mat-grid-tile>-->
-<!--    <p> test</p>-->
-<!--  </mat-grid-tile>-->
-<!--</mat-grid-list>-->
-
-
-<app-weather></app-weather>
-    <app-hours-forecast></app-hours-forecast>
-
-
-
-
-<!--<app-header></app-header>-->
-<!--<app-weather></app-weather>-->
-<!--<app-hours-forecast></app-hours-forecast>-->
+<div class="page-container">
+  <app-weather class="weather-container"></app-weather>
+</div>
+<h1>Forecast for the next 3 days</h1>
+<app-hours-forecast></app-hours-forecast>

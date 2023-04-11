@@ -18,12 +18,14 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTooltipModule} from "@angular/material/tooltip";
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     WeatherComponent,
     HeaderComponent,
     HoursForecastComponent,
+
 
   ],
   imports: [
@@ -39,7 +41,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatCardModule,
     MatTooltipModule
   ],
-  providers: [WeatherService,HoursForecastComponent],
+  providers: [WeatherService,HoursForecastComponent,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

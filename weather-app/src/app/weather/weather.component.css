@@ -4,17 +4,19 @@
   box-shadow: 10px 10 px 10 px var(--shadow--dark);
   align-items:center;
   width: auto;
+  float:left;
+  border: 2px solid dimgray;
+  flex-direction: column;
+  display:inline-block;
 
-  /*overflow: hidden;*/
 
-  /*align-items: flex-start;*/
 }
 
 
 .city{
   color:var(--greY-1);
   text-align: center;
-  /*font-size: 1.2em;*/
+
 }
 .p{
   font-family: Verdana;
@@ -26,16 +28,14 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 2px solid dimgray;}
+
+}
 
 
 .button{
   margin-right: 5px;
 }
-/*@media screen and (max-width: 600px) {*/
-/*  .container {*/
-/*    font-size: 16px;*/
-/*  }}*/
+
 
 .medium-icon {
   width: 60%;
@@ -44,12 +44,14 @@
 }
 
 .favorites-container {
-  /*position: fixed;*/
   top: 0;
   right: 0;
   width: 300px;
   background-color: white;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  float:right;
+  display: inline-block;
+  vertical-align: top;
 }
 
